@@ -52,8 +52,33 @@ class LinkedList:
       self.length -= 1
       return value
 
+  def print_list(self):
+    cur_node = self.head
+    while cur_node is not None:
+      val = cur_node.get_value()
+      print(val)
+      cur_node = cur_node.get_next()
+
   def remove_tail(self):
-    pass
+    value = None
+    if self.length > 0:
+      if self.length == 1:
+        value = self.head.get_value()
+        self.head = None
+        self.tail = None
+      elif self.length > 1:
+        cur_node = self.head
+        searching = True
+        while searching:
+          if cur_node.get_next() == self.tail:
+            value = self.tail.get_value()
+            self.tail = cur_node
+            self.tail.set_next(None)
+            searching = False
+          else:
+            cur_node = cur_node.get_next()
+      self.length -= 1
+    return value
 
   def contains(self, value):
     cur_node = self.head
@@ -74,28 +99,3 @@ class LinkedList:
       return cur_max
     else:
       return None
-
-  def find_middle(self):
-    # Doing this in 1 pass, without using `length` attribute
-    mid_point = self.head
-    end_point = self.head
-    index = 0
-    while end_point is not None or end_point.get_next() is not None:
-      index += 1
-      mid_point = mid_point.get_next()
-      end_point = end_point.get_next().get_next()
-    return index
-
-sll = LinkedList()
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-sll.add_to_tail(1)
-print(sll.find_middle(), sll.length)
